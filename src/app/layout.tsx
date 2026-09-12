@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "刘文安 | Mycool AI Engineer Portfolio",
-  description: "刘文安的个人技术作品集。人工智能本科生，持续学习 Python、AI 应用开发与软件工程，记录真实项目与课程实践。",
+  description: "刘文安的技术作品集。人工智能专业本科生，有机器人二次开发工作经历，关注 AI / Python 应用开发，展示真实项目、工程实践与持续学习。",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -1,115 +1,62 @@
-const projects = [
-  {
-    number: "01", type: "Graduation Project", status: "Completed / Legacy Project",
-    title: "LSTM Movie Review Sentiment Analysis",
-    description: "基于中文影评数据完成文本预处理、LSTM 情感分类模型训练，并使用 Flask 封装预测接口，通过 Web 页面展示情感分类结果和置信度。",
-    tags: ["Python", "LSTM", "NLP", "Flask", "Machine Learning"],
-    note: "Original source archive unavailable.",
-  },
-  {
-    number: "02", type: "School Training Project", status: "Learning Project",
-    title: "Local LLM Chatbot Practice",
-    description: "在学校实训中学习本地大模型部署和聊天机器人开发流程，接触 Ollama、DeepSeek/Qwen、本地模型 API 和聊天界面开发。",
-    tags: ["Python", "Ollama", "LLM", "DeepSeek", "Streamlit"],
-    note: "学校实训中的学习实践，持续积累对本地模型与应用连接的理解。",
-  },
-  {
-    number: "03", type: "Personal Project", status: "In Development",
-    title: "Mycool AI Engineer Portfolio",
-    description: "为求职和长期技术积累开发的个人技术展示网站，使用 Next.js、TypeScript 和 Tailwind CSS 构建。",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Git"],
-    note: "You’re here — 当前正在持续开发的个人项目。",
-  },
+const navigation = [
+  ["home", "首页"], ["experience", "工作经历"], ["projects", "项目经历"],
+  ["skills", "技能与工具"], ["coursework", "课程实践"], ["about", "关于我"], ["contact", "联系方式"],
 ];
-const labs = ["Intelligent Speech Synthesis", "Digital Image Processing", "Machine Learning", "STM32 Embedded Development", "6-Axis Robotic Arm Control", "Conveyor Object Detection & Sorting"];
 const skills = [
-  { title: "Programming", items: ["Python", "TypeScript", "JavaScript"] },
-  { title: "AI / Data", items: ["PyTorch", "OpenCV", "NumPy", "Machine Learning", "NLP"] },
-  { title: "Backend / Web", items: ["Flask", "FastAPI", "HTTP API", "Next.js"] },
-  { title: "Tools", items: ["Git", "VS Code", "Windows", "basic Linux"] },
+  { title: "编程语言", tags: ["Python", "TypeScript", "JavaScript"], description: "主要用于 AI 实验、Web 应用和个人项目开发。" },
+  { title: "AI / 机器学习", tags: ["PyTorch", "OpenCV", "NLP", "LSTM", "Machine Learning"], description: "通过毕业设计和课程实践接触模型训练、文本处理与计算机视觉基础。" },
+  { title: "Web / API", tags: ["Next.js", "Flask", "FastAPI", "REST API"], description: "用于构建 AI 应用界面、后端服务和模型接口，并持续学习相关工程实践。" },
+  { title: "工程工具", tags: ["Git", "VS Code", "Windows", "Linux 基础", "AI Agent 辅助开发"], description: "目前正在建立规范的 Git、Agent、测试和项目开发工作流。" },
 ];
-const navigation = ["Home", "Projects", "Skills", "About", "Contact"];
-
+const labs = ["智能语音合成", "数字图像处理", "机器学习", "STM32 嵌入式开发", "六轴机械臂控制", "模拟传送带货物识别与分拣"];
+function Tags({ items }: { items: string[] }) {
+  return <ul className="tags" aria-label="相关技术">{items.map(item => <li key={item}>{item}</li>)}</ul>;
+}
+function SectionLabel({ number, children }: { number: string; children: React.ReactNode }) {
+  return <p className="section-label"><span>{number}</span>{children}</p>;
+}
 export default function Home() {
   return (
     <>
       <a className="skip-link" href="#main-content">跳到主要内容</a>
-      <header className="site-header">
-        <div className="shell header-inner">
-          <a href="#home" className="wordmark" aria-label="Mycool 首页">mycool<span aria-hidden="true">.</span></a>
-          <nav aria-label="主导航">
-            {navigation.map((item) => <a key={item} href={`#${item.toLowerCase()}`}>{item}</a>)}
-          </nav>
-        </div>
-      </header>
-
+      <header className="site-header"><div className="shell header-inner">
+        <a href="#home" className="wordmark" aria-label="Mycool 首页">mycool<span>.</span><span className="wordmark-caption">刘文安的技术作品集</span></a>
+        <nav aria-label="主导航">{navigation.map(([id,label]) => <a key={id} href={`#${id}`}>{label}</a>)}</nav>
+      </div></header>
       <main id="main-content">
-        <section id="home" className="shell hero" aria-labelledby="hero-title">
-          <div className="hero-copy">
-            <p className="eyebrow"><span className="status-dot" aria-hidden="true" /> A PORTFOLIO IN PROGRESS</p>
-            <h1 id="hero-title">刘文安<span>Liu Wen&apos;an</span></h1>
-            <p className="hero-role">AI / Python<br className="desktop-break" /> Application Developer<span className="accent">.</span></p>
-            <p className="hero-description">人工智能本科生，正在通过真实项目持续学习<br className="desktop-break" /> AI 应用开发、Python 和软件工程。</p>
-            <div className="hero-actions">
-              <a href="#projects" className="button button-primary">View Projects <span aria-hidden="true">↗</span></a>
-              <a href="#contact" className="button button-secondary">Contact Me <span aria-hidden="true">→</span></a>
+        <section id="home" className="hero shell" aria-labelledby="hero-title">
+          <div className="hero-overline"><p>刘文安 <span>/ AI · Python · 软件开发</span></p><span className="edition">MYCOOL / 2026</span></div>
+          <div className="hero-body">
+            <div className="hero-copy"><h1 id="hero-title"><span>把 AI 想法，</span><span>做成真正</span><span className="hero-last">能运行的东西<span className="accent">。</span></span></h1>
+              <p className="hero-role">AI / Python 应用开发方向</p>
+              <p className="hero-description">人工智能专业本科生，有机器人二次开发实际工作经历。<br className="desktop-break" />正在通过真实项目持续提升 AI 应用开发、Python 与软件工程能力。</p>
+              <div className="hero-actions"><a href="#projects" className="button primary">查看我的项目 <span aria-hidden="true">↗</span></a><a href="#contact" className="button secondary">联系我 <span aria-hidden="true">→</span></a></div>
             </div>
+            <aside className="hero-aside" aria-label="实践方向"><div className="system-mark" aria-hidden="true"><span>[</span><i /><span>]</span></div><p className="aside-label">从想法到实现</p><ol><li><span>01</span>模型与数据</li><li><span>02</span>软件与接口</li><li><span>03</span>设备与应用</li></ol><p className="aside-note">在真实问题中，<br />建立完整的工程视角。</p></aside>
           </div>
-          <aside className="focus-card" aria-label="当前学习与开发方向">
-            <div className="focus-top"><span className="eyebrow">CURRENT FOCUS</span><span className="mini-mark" aria-hidden="true">[ / ]</span></div>
-            <p className="focus-title">从理解原理，<br />到做出应用。</p>
-            <p className="focus-description">Learning by building.<br />一次实验，一段代码，一个真实项目。</p>
-            <div className="focus-steps">
-              <div><span>01</span><p>模型实验<small>Explore & understand</small></p></div>
-              <div><span>02</span><p>接口开发<small>Connect & implement</small></p></div>
-              <div><span>03</span><p>Web 应用<small>Build & iterate</small></p></div>
-            </div>
-            <div className="focus-bottom"><span className="status-dot" aria-hidden="true" /> 持续学习 · 持续实践</div>
-          </aside>
-          <div className="hero-foot"><span>Python / AI Applications / Software Engineering</span><a href="#projects">Explore the work <span aria-hidden="true">↓</span></a></div>
+          <div className="hero-bottom"><p><span className="status-dot" />正在寻找 AI / Python / 软件开发相关机会</p><a href="#experience">了解我的实践经历 <span aria-hidden="true">↓</span></a></div>
         </section>
-
-        <section id="projects" className="section section-tinted" aria-labelledby="projects-title">
-          <div className="shell">
-            <div className="section-heading"><div><p className="eyebrow">01 / SELECTED PROJECTS</p><h2 id="projects-title">把学习落在实际项目里<span className="accent">。</span></h2></div><p>毕业设计、课程实训与个人开发。<br />如实记录做过的事，以及正在做的事。</p></div>
-            <div className="project-grid">
-              {projects.map((project) => (
-                <article className="project-card" key={project.number}>
-                  <div className="project-top"><span className="project-number">/{project.number}</span><span className={`project-status ${project.number === "03" ? "status-active" : ""}`}>{project.status}</span></div>
-                  <p className="project-type">{project.type}</p>
-                  <h3>{project.title}</h3>
-                  <p className="project-description">{project.description}</p>
-                  <ul className="tags" aria-label="项目技术栈">{project.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
-                  <p className="project-note">{project.note}</p>
-                </article>
-              ))}
-            </div>
-            <div className="labs-heading"><h3>Coursework / Labs</h3><p>基础课程设计与实验，用于理解 AI、计算机视觉、嵌入式和机器人控制的基本原理。</p></div>
-            <ul className="labs-grid">{labs.map((lab, index) => <li key={lab}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>{lab}</li>)}</ul>
-          </div>
+        <section id="experience" className="section experience-section" aria-labelledby="experience-title"><div className="shell">
+          <SectionLabel number="01">工作经历</SectionLabel>
+          <div className="experience-grid"><div className="experience-heading"><p className="date">2026.06 — 2026.09</p><h2 id="experience-title">机器人二次开发工程师</h2><p className="company">安徽国科赛安科技有限公司</p><span className="small-label">真实设备 · 实际工程环境</span></div>
+          <div className="experience-detail"><p className="experience-lead">让软件在实际设备上运行，<br />也在现场理解工程问题。</p><ul className="responsibilities"><li>参与机器人相关软件二次开发、设备联调与问题排查。</li><li>参与四足机器人功能与运行稳定性调试。</li><li>结合实际设备进行软件、接口和机器人运行问题定位。</li><li>在实际工程环境中接触 Python、设备接口、调试与测试流程。</li></ul><Tags items={["Python", "机器人二次开发", "设备联调", "问题定位", "调试与测试"]} /></div></div>
+        </div></section>
+        <section id="projects" className="shell section" aria-labelledby="projects-title">
+          <SectionLabel number="02">项目经历</SectionLabel><div className="section-heading"><h2 id="projects-title">做过的项目，正在走的路。</h2><p>毕业设计、个人开发与学校实训。<br />每一项，都有明确的实践边界。</p></div>
+          <article className="featured-project"><div className="project-meta"><span className="project-index">01 / 毕业设计</span><span className="status">已完成 / 历史项目</span></div>
+            <div className="featured-grid"><div><h3>基于 LSTM 的<br />影评情感分析系统</h3><p className="project-description">完成中文影评数据预处理、LSTM 情感分类模型训练，使用 Flask 封装预测接口，并通过 Web 页面展示情感分类结果和置信度。</p><Tags items={["Python", "LSTM", "NLP", "Flask", "Machine Learning"]} /></div>
+            <div className="pipeline" aria-label="项目实现流程"><p className="pipeline-label">从文本到预测结果</p><ol><li><span>输入</span><strong>中文影评</strong><small>文本预处理</small></li><li><span>模型</span><strong>LSTM 情感分类</strong><small>模型训练与预测</small></li><li><span>应用</span><strong>Flask → Web</strong><small>分类结果与置信度</small></li></ol></div></div>
+            <p className="archive-note"><span aria-hidden="true">↳</span> 原项目源码存档目前已遗失，保留毕业设计与答辩材料。</p>
+          </article>
+          <article className="project-row"><span className="row-number">02</span><div><div className="row-meta"><span>个人项目</span><span className="status active">持续开发中</span></div><h3>Mycool AI Engineer Portfolio</h3><p>面向个人求职和长期技术积累开发的技术作品集网站，用于展示真实项目、工程实践和学习过程。</p><p className="project-note">本网站本身，就是正在持续维护的真实工程项目。</p></div><div className="row-stack"><Tags items={["Next.js", "TypeScript", "Tailwind CSS", "Git"]} /><span className="site-indicator"><span className="status-dot" />你正在浏览这个项目</span></div></article>
+          <article className="project-row"><span className="row-number">03</span><div><div className="row-meta"><span>学校实训</span><span className="status">学习项目</span></div><h3>本地大模型聊天机器人实践</h3><p>在学校实训中学习本地大模型部署和聊天机器人开发流程，接触 Ollama、DeepSeek/Qwen、本地模型 API 与聊天界面开发。</p></div><div className="row-stack"><Tags items={["Python", "Ollama", "LLM", "DeepSeek", "Streamlit"]} /></div></article>
         </section>
-
-        <section id="skills" className="shell section" aria-labelledby="skills-title">
-          <div className="section-heading"><div><p className="eyebrow">02 / TOOLKIT</p><h2 id="skills-title">正在积累的技术能力</h2></div><p>在学习和实践中逐步深入。<br />技术名称不代表专家级熟练度。</p></div>
-          <div className="skills-grid">{skills.map((group, index) => <article className="skill-group" key={group.title}><span className="skill-index" aria-hidden="true">0{index + 1}</span><h3>{group.title}</h3><ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div>
-        </section>
-
-        <section id="about" className="section about-section" aria-labelledby="about-title">
-          <div className="shell about-grid">
-            <div><p className="eyebrow">03 / ABOUT ME</p><h2 id="about-title">保持好奇，<br />认真把事情做出来。</h2></div>
-            <div className="about-copy"><p>我是刘文安，一名人工智能专业本科生，关注 Python、AI 应用开发、机器学习与软件工程。</p><p>希望通过实际项目，持续提高从模型实验、接口开发到 Web 应用实现的完整工程能力。比起罗列技术名词，我更希望能讲清楚：问题是什么、如何实现，以及哪些地方还需要改进。</p><ul className="principles"><li>持续学习</li><li>实际开发</li><li>工程思维</li></ul></div>
-          </div>
-        </section>
-
-        <section id="contact" className="shell section contact-section" aria-labelledby="contact-title">
-          <p className="eyebrow">04 / GET IN TOUCH</p>
-          <h2 id="contact-title">从一次交流开始<span className="accent">。</span></h2>
-          <p className="contact-intro">欢迎就求职机会、项目实践与技术学习联系我。</p>
-          <a className="email-link" href="mailto:15735434286@163.com">15735434286@163.com <span aria-hidden="true">↗</span></a>
-          <div className="contact-resources"><button type="button" disabled aria-describedby="resources-note">GitHub <span aria-hidden="true">↗</span></button><button type="button" disabled aria-describedby="resources-note">Resume <span aria-hidden="true">↓</span></button><p id="resources-note">GitHub 链接与正式简历确认后开放。</p></div>
-        </section>
+        <section id="skills" className="section skills-section" aria-labelledby="skills-title"><div className="shell"><SectionLabel number="03">技能与工具</SectionLabel><div className="section-heading"><h2 id="skills-title">技术不只是名字，<br />也是解决问题的方式。</h2><p>在项目中使用，在实践中理解。<br />仍在学习，也持续建立更扎实的基础。</p></div><div className="skills-grid">{skills.map((skill,index)=><article className="skill-group" key={skill.title}><span className="skill-index">0{index+1}</span><div><h3>{skill.title}</h3><p>{skill.description}</p><Tags items={skill.tags} /></div></article>)}</div></div></section>
+        <section id="coursework" className="shell section coursework-section" aria-labelledby="coursework-title"><div className="coursework-heading"><div><SectionLabel number="04">课程实践</SectionLabel><h2 id="coursework-title">从基础实验开始。</h2></div><p>本科阶段完成的基础课程设计与实验，用于学习人工智能、计算机视觉、嵌入式系统和机器人控制的基本原理。</p></div><ul className="labs-list">{labs.map((lab,index)=><li key={lab}><span>0{index+1}</span>{lab}</li>)}</ul></section>
+        <section id="about" className="section about-section" aria-labelledby="about-title"><div className="shell about-grid"><div><SectionLabel number="05">关于我</SectionLabel><h2 id="about-title">关注连接，<br />也关注实现。</h2></div><div className="about-copy"><p>我是刘文安，一名人工智能专业本科生。</p><p>相比单纯罗列技术名词，我更关注把模型、接口、软件和实际设备组合成可以工作的系统。毕业设计让我接触模型与应用的连接，机器人二次开发经历让我开始理解软件在实际设备上的运行与调试。</p><p>目前正在持续学习 AI 应用开发、Python、Web 工程与软件开发流程。这个网站也会随着新的实践，一起更新。</p><div className="about-signature">刘文安 <span>Liu Wen&apos;an</span></div></div></div></section>
+        <section id="contact" className="shell section contact-section" aria-labelledby="contact-title"><SectionLabel number="06">联系方式</SectionLabel><div className="contact-grid"><div><h2 id="contact-title">聊聊下一个<br />可以一起解决的问题<span className="accent">。</span></h2><p>欢迎交流 AI / Python / 软件开发相关岗位与项目实践。</p></div><div className="contact-details"><span className="email-label">邮件联系</span><a className="email-link" href="mailto:15735434286@163.com">15735434286@163.com <span aria-hidden="true">↗</span></a><div className="contact-resources"><button disabled type="button" aria-describedby="resources-note">GitHub <span aria-hidden="true">↗</span></button><button disabled type="button" aria-describedby="resources-note">简历下载 <span aria-hidden="true">↓</span></button></div><p id="resources-note">真实链接与正式简历确认后开放。</p></div></div></section>
       </main>
-      <footer className="site-footer"><div className="shell footer-inner"><p>© 2026 Liu Wen&apos;an</p><p>Built with Next.js &amp; TypeScript</p><a href="#home">Back to top <span aria-hidden="true">↑</span></a></div></footer>
+      <footer className="site-footer"><div className="shell footer-inner"><p>© 2026 刘文安 · Mycool</p><p>使用 Next.js 与 TypeScript 构建</p><a href="#home">回到顶部 ↑</a></div></footer>
     </>
   );
 }
