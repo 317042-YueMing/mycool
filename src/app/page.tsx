@@ -1,67 +1,169 @@
-const navigation = [
-  ["home", "首页"], ["experience", "工作经历"], ["projects", "项目经历"],
-  ["skills", "技能与工具"], ["coursework", "课程实践"], ["about", "关于我"], ["contact", "联系方式"],
-];
-const skills = [
-  { title: "编程语言", tags: ["Python", "TypeScript", "JavaScript"], description: "主要用于 AI 实验、Web 应用和个人项目开发。" },
-  { title: "AI / 机器学习", tags: ["PyTorch", "OpenCV", "NLP", "LSTM", "Machine Learning"], description: "通过毕业设计和课程实践接触模型训练、文本处理和计算机视觉。" },
-  { title: "Web / API", tags: ["Next.js", "Flask", "FastAPI", "REST API"], description: "用于构建 AI 应用界面、后端服务和模型接口。" },
-  { title: "工程工具", tags: ["Git", "VS Code", "Windows", "Linux 基础", "AI Agent 辅助开发"], description: "目前正在建立规范的 Git、Agent、测试和项目开发工作流。" },
-];
-const labs = ["智能语音合成", "数字图像处理", "机器学习", "STM32 嵌入式开发", "六轴机械臂控制", "模拟传送带货物识别与分拣"];
-function Tags({ items }: { items: string[] }) {
-  return <ul className="tags" aria-label="相关技术">{items.map(item => <li key={item}>{item}</li>)}</ul>;
-}
-function SectionLabel({ number, children }: { number: string; children: React.ReactNode }) {
-  return <p className="section-label"><span>{number}</span>{children}</p>;
-}
+import Image from "next/image";
+import ImagePreview from "./components/ImagePreview";
+import CaseDisclosure from "./components/CaseDisclosure";
+import ProjectMedia from "./components/ProjectMedia";
+import SiteNavigation from "./components/SiteNavigation";
+
+const github = "https://github.com/317042-YueMing";
+const email = "15735434286@163.com";
+const loadDriftRecord = {
+  summary: "在四足机器人顶部新增金属支架与海康摄像头后，直线行走测试中出现步态漂移。我参与现场复现、现象记录和多轮测试，并与厂家技术人员协作完成排查、调整与验证。由于详细调试参数未完整留存，目前不对具体底层原因和参数修改做未经确认的描述。",
+  sections: [
+    { heading: "背景", text: "为了扩展机器人现场感知能力，在四足机器人顶部加装金属支架，并在支架上安装海康摄像头。" },
+    { heading: "问题", text: "加装完成后，机器人原有负载状态发生变化。在后续直线行走测试中发现，机器人执行直线运动时出现不同程度的步态漂移，实际运动方向与预期轨迹存在偏差。" },
+    { heading: "我的参与", text: "参与现场问题复现、现象记录、设备状态检查和多轮行走测试，并将加装前后的表现差异整理后反馈给厂家技术人员。" },
+    { heading: "协作方式", text: "现场复现与测试 + 问题反馈 + 厂家技术支持 + 多轮验证。我负责现场复现、测试、记录和反馈；厂家技术人员提供设备侧技术支持和调整建议。" },
+    { heading: "排查与调整", text: "与厂家技术人员协作进行排查和调整，并根据现场测试结果反复验证机器人在新增负载条件下的行走状态。" },
+    { heading: "事实边界", text: "问题排查和解决并非我独立完成。由于当时没有完整保留调试记录，目前不对具体参数、具体调整项和底层原因做未经确认的描述。" },
+    { heading: "结果", text: "问题最终在与厂家技术人员协作调试后得到改善。" },
+  ],
+} as const;
+
+const narrowPassageRecord = {
+  summary: "在狭窄过道进行实际通行测试时，四足机器人的智能避障表现存在不稳定情况。我参与了现场复现、多轮通行测试和现象记录，并与厂家技术人员协作完成排查、调整和重复验证。由于详细调试记录未完整保留，目前不对具体避障算法、参数或底层原因做未经确认的描述。",
+  sections: [
+    { heading: "背景", text: "四足机器人需要在室内环境中执行移动和避障。在狭窄过道等空间余量较小的场景中，避障效果更容易受到环境和设备状态影响。" },
+    { heading: "问题", text: "在狭窄过道进行实际通行测试时，机器人智能避障表现并不稳定。有时可以正常通过，有时会出现避障判断不一致，导致通行过程不够稳定。" },
+    { heading: "我的参与", text: "参与狭窄过道场景下的多轮复现与通行测试，记录不同测试中的实际表现，并将问题现象整理后反馈给厂家技术人员。" },
+    { heading: "协作方式", text: "现场复现与测试 + 问题记录 + 厂家技术支持 + 调整后重复验证。厂家技术人员提供设备侧技术支持、配置或参数调整建议；我配合现场测试，验证不同调整后的表现。" },
+    { heading: "排查与调整", text: "与厂家技术人员协作进行设备侧排查和相关调整，并在每轮调整后重新进行狭窄过道通行测试，观察避障表现是否改善。" },
+    { heading: "事实边界", text: "排查和处理由我与厂家技术人员协作完成，并非我独立解决。由于当时没有完整保留调试记录，目前不对具体避障算法、传感器参数、阈值或底层原因做未经确认的描述。" },
+    { heading: "结果", text: "问题最终在与厂家技术人员协作调试后得到改善，狭窄过道中的通行表现比初始状态更稳定。" },
+  ],
+} as const;
+
+const stairsRecord = {
+  summary: "在实际上下楼梯测试过程中，四足机器人出现过偏航和阶段性停顿。我参与了现场复现、多轮楼梯通行测试和现象记录，并与厂家技术人员协作完成排查、调整和重复验证。由于详细调试记录未完整保留，目前不对具体控制算法、参数或底层原因做未经确认的描述。",
+  sections: [
+    { heading: "背景", text: "四足机器人需要在实际环境中完成楼梯通行测试。相比普通平地行走，楼梯场景对运动稳定性和连续性提出了更高要求。" },
+    { heading: "问题", text: "在实际上下楼梯测试过程中，机器人出现过行走方向偏离预期路线的情况，同时运行过程中还会出现阶段性停顿，影响楼梯通行的连续性和稳定性。" },
+    { heading: "我的参与", text: "参与楼梯场景下的多轮复现和通行测试，记录偏航与停顿现象，并将不同测试中的表现整理后反馈给厂家技术人员。" },
+    { heading: "协作方式", text: "现场复现与测试 + 问题记录 + 厂家技术支持 + 调整后重复验证。厂家技术人员提供设备侧技术支持、配置或参数调整建议；我配合现场测试、复现问题并验证不同调整后的表现。" },
+    { heading: "排查与调整", text: "与厂家技术人员协作进行设备侧排查和相关调整，并在每轮调整后重新进行上下楼梯测试，观察机器人行走方向和运行连续性是否改善。" },
+    { heading: "事实边界", text: "排查和处理由我与厂家技术人员协作完成，并非我独立解决。由于当时没有完整保留调试记录，目前不对具体控制算法、姿态参数、楼梯识别逻辑或底层原因做未经确认的描述。" },
+    { heading: "结果", text: "问题最终在与厂家技术人员协作调试后得到改善，上下楼梯过程中的方向稳定性和运行连续性相比初始状态有所改善。" },
+  ],
+} as const;
+
+const cases = [
+  { id: "load-drift", number: "01", title: "加装上装设备后出现步态漂移", problem: "机器人增加负载后，运动方向与步态稳定性出现偏差。" },
+  { id: "narrow-passage", number: "02", title: "狭窄过道中的智能避障不稳定", problem: "四足机器人在狭窄过道中的智能避障表现不稳定。" },
+  { id: "stairs", number: "03", title: "上下楼梯过程中的偏航与停顿", problem: "上下楼梯时出现不走直线、运行中停顿等现象。" },
+] as const;
+
+const robotics = [
+  { src: "/media/robotics/robotics-sensor-rig-01.jpg", width: 1279, height: 1706, alt: "四足机器人与顶部感知模组" },
+  { src: "/media/robotics/robotics-standing-overview-01.jpg", width: 1706, height: 1279, alt: "四足机器人侧面站立状态" },
+  { src: "/media/robotics/robotics-sensor-config-01.jpg", width: 1279, height: 1706, alt: "四足机器人顶部感知模块配置" },
+  { src: "/media/robotics/robotics-hardware-inspection-01.jpg", width: 1919, height: 1080, alt: "四足机器人硬件检查状态" },
+] as const;
+
 export default function Home() {
   return (
     <>
       <a className="skip-link" href="#main-content">跳到主要内容</a>
-      <header className="site-header"><div className="shell header-inner">
-        <a href="#home" className="wordmark" aria-label="Mycool 首页">mycool<span>.</span><span className="wordmark-caption">刘文安的技术作品集</span></a>
-        <nav aria-label="主导航">{navigation.map(([id,label]) => <a key={id} href={`#${id}`}>{label}</a>)}</nav>
-      </div></header>
-      <main id="main-content">
-        <section id="home" className="hero shell" aria-labelledby="hero-title">
-          <div className="hero-overline"><p>刘文安 <span>/ AI · Python · 软件开发</span></p><span className="edition">MYCOOL / 2026</span></div>
-          <div className="hero-body">
-            <div className="hero-copy"><h1 id="hero-title"><span>把 AI 想法，</span><span>做成真正</span><span className="hero-last">能运行的东西<span className="accent">。</span></span></h1>
-              <p className="hero-role">AI / Python 应用开发方向</p>
-              <p className="hero-experience">机器人二次开发工程师 · 安徽国科赛安科技有限公司 · 2026</p><p className="hero-description">人工智能专业本科生，正在通过真实项目持续提升<br className="desktop-break" /> AI 应用开发、Python 与软件工程能力。</p>
-              <div className="hero-actions"><a href="#projects" className="button primary">查看我的项目 <span aria-hidden="true">↗</span></a><a href="#contact" className="button secondary">联系我 <span aria-hidden="true">→</span></a></div>
-            </div>
-            <aside className="hero-aside" aria-label="实践方向"><div className="system-mark" aria-hidden="true"><span>[</span><i /><span>]</span></div><p className="aside-label">从想法到实现</p><ol><li><span>01</span>模型与数据</li><li><span>02</span>软件与接口</li><li><span>03</span>设备与应用</li></ol><p className="aside-note">在真实问题中，<br />建立完整的工程视角。</p></aside>
+      <header className="site-header shell">
+        <a href="#intro" className="wordmark" aria-label="Mycool 首页">Mycool</a>
+        <SiteNavigation />
+      </header>
+      <main id="main-content" tabIndex={-1}>
+        <section className="identity shell" id="intro" aria-labelledby="identity-title">
+          <div className="nameplate"><h1 id="identity-title">刘文安</h1><p lang="en">Liu Wen’an</p></div>
+          <div className="identity-foot">
+            <p>人工智能专业背景，做过机器人二次开发。</p>
+            <div className="text-links"><a href="#work">查看项目</a><a href={github}>GitHub</a><a href="/resume.pdf" download>简历</a><a href={`mailto:${email}`}>邮箱</a></div>
           </div>
-          <div className="hero-bottom"><p><span className="status-dot" />正在寻找 AI / Python / 软件开发相关机会</p><a href="#experience">了解我的实践经历 <span aria-hidden="true">↓</span></a></div>
         </section>
-        <section id="experience" className="section experience-section" aria-labelledby="experience-title"><div className="shell">
-          <SectionLabel number="01">工作经历</SectionLabel>
-          <div className="experience-grid"><div className="experience-heading"><p className="date">2026.06 — 2026.09</p><h2 id="experience-title">机器人二次开发工程师</h2><p className="company">安徽国科赛安科技有限公司</p><span className="small-label">真实设备 · 实际工程环境</span></div>
-          <div className="experience-detail"><p className="experience-lead">参与软件二次开发，<br />也参与真实设备上的问题定位。</p><p className="experience-summary">参与机器人软件二次开发、设备联调与四足机器人运行稳定性调试，在实际工程环境中接触 Python、设备接口、问题排查与测试流程。</p><Tags items={["Python", "机器人二次开发", "设备联调", "问题定位", "调试与测试"]} /></div></div>
-          <div className="cases" aria-labelledby="cases-title"><h3 id="cases-title">实际问题案例 <span>参与排查与定位</span></h3><div className="case-list">
-            <article className="case-note"><span className="case-number">01</span><h4>负重后步态漂移</h4><p>机器人增加负载后，运动方向与步态稳定性出现偏差。参与定位负载变化、运动参数和控制状态对步态的影响。</p></article>
-            <article className="case-note"><span className="case-number">02</span><h4>狭窄过道智能避障不稳定</h4><p>狭窄环境中的避障表现时好时坏。参与排查感知、路径判断与设备运行状态之间的问题。</p></article>
-            <article className="case-note"><span className="case-number">03</span><h4>上下楼梯偏航与停顿</h4><p>上下楼梯时出现不走直线、运行中停顿等现象。参与结合现场现象、运动状态和相关控制参数进行问题定位。</p></article>
-          </div></div>
-        </div></section>
-        <section id="projects" className="shell section" aria-labelledby="projects-title">
-          <SectionLabel number="02">项目经历</SectionLabel><div className="section-heading"><h2 id="projects-title">做过的项目，正在走的路。</h2><p>毕业设计、个人开发与学校实训。<br />每一项，都有明确的实践边界。</p></div>
-          <article className="featured-project"><div className="project-meta"><span className="project-index">01 / 毕业设计</span><span className="status">已完成 / 历史项目</span></div>
-            <div className="featured-grid"><div><h3>基于 LSTM 的<br />影评情感分析系统</h3><p className="project-description">完成中文影评数据预处理、LSTM 情感分类模型训练，使用 Flask 封装预测接口，并通过 Web 页面展示情感分类结果和置信度。</p><Tags items={["Python", "LSTM", "NLP", "Flask", "Machine Learning"]} /></div>
-            <div className="pipeline" aria-label="项目实现流程"><p className="pipeline-label">从文本到预测结果</p><ol><li><span>输入</span><strong>中文影评</strong><small>文本预处理</small></li><li><span>模型</span><strong>LSTM 情感分类</strong><small>模型训练与预测</small></li><li><span>应用</span><strong>Flask → Web</strong><small>分类结果与置信度</small></li></ol></div></div>
-            <p className="archive-note"><span aria-hidden="true">↳</span> 原项目源码存档目前已遗失，保留毕业设计与答辩材料。</p>
-          </article>
-          <article className="project-row portfolio-project"><span className="row-number">02</span><div><div className="row-meta"><span>个人项目</span><span className="status active">持续开发中</span></div><h3>Mycool AI Engineer Portfolio</h3><p>面向个人求职和长期技术积累开发的技术作品集网站，用于展示真实项目、工程实践和学习过程。</p><p className="project-note">当前网站本身就是正在持续维护的真实工程项目。</p></div><div className="row-stack"><p className="stack-label">本项目实践内容</p><Tags items={["Next.js", "TypeScript", "Tailwind CSS", "Git", "响应式布局", "Agent 辅助开发"]} /><span className="site-indicator"><span className="status-dot" />你正在浏览这个项目</span></div></article>
-          <article className="project-row"><span className="row-number">03</span><div><div className="row-meta"><span>学校实训</span><span className="status">学习项目</span></div><h3>本地大模型聊天机器人实践</h3><p>在学校实训中学习本地模型部署、API 调用与聊天界面实现流程。</p></div><div className="row-stack"><Tags items={["Python", "Ollama", "DeepSeek / Qwen", "Streamlit", "LLM API"]} /></div></article>
+
+        <section id="work" className="work shell" aria-labelledby="work-title">
+          <div className="section-caption"><h2 id="work-title">精选作品</h2><p className="mono">01 — 03</p></div>
+          <div className="work-gallery">
+            <article className="robot-project" aria-labelledby="robot-title">
+              <div className="robot-gallery">
+                <figure className="robot-main-photo">
+                  <ImagePreview capture={robotics[0]} title={robotics[0].alt} description="相关设备 / 联调现场素材" label={`放大查看：${robotics[0].alt}`} className="robot-photo">
+                    <Image {...robotics[0]} alt={robotics[0].alt} loading="eager" sizes="(max-width: 700px) 100vw, 46vw" />
+                    <span className="photo-action">放大查看 ↗</span>
+                  </ImagePreview>
+                </figure>
+                <div className="robot-side">
+                  <figure className="robot-secondary-photo">
+                    <ImagePreview capture={robotics[1]} title={robotics[1].alt} description="相关设备 / 联调现场素材" label={`放大查看：${robotics[1].alt}`} className="robot-photo">
+                      <Image {...robotics[1]} alt={robotics[1].alt} sizes="(max-width: 700px) 70vw, 30vw" />
+                      <span className="photo-action">侧面站立 · 放大查看 ↗</span>
+                    </ImagePreview>
+                  </figure>
+                  <div className="robot-caption">
+                    <p className="mono">01 / 机器人工程 · 2026.06 — 2026.09</p>
+                    <h3 id="robot-title">机器人二次开发<br />与四足机器人联调</h3>
+                    <div className="robot-company"><p>安徽国科赛安科技有限公司</p><p>机器人二次开发工程师</p></div>
+                    <p className="robot-description">参与软件二次开发、设备联调与四足机器人稳定性问题排查。</p>
+                  </div>
+                </div>
+              </div>
+              <div className="robot-issues">
+                <ul className="cover-index">{cases.map((entry) => <li key={entry.id}><CaseDisclosure number={entry.number} title={entry.title} problem={entry.problem} record={entry.id === "load-drift" ? loadDriftRecord : entry.id === "narrow-passage" ? narrowPassageRecord : stairsRecord} recordHref={`#${entry.id}`} variant="cover" /></li>)}</ul>
+                <a href="#cases" className="cover-link mono">浏览工程记录 <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+
+            <article className="mycool-project" aria-labelledby="mycool-title">
+              <ProjectMedia />
+              <div className="project-caption"><div><h3 id="mycool-title">Mycool</h3><p>正在开发和维护的个人技术网站。</p></div><p className="mono">当前开发中</p></div>
+              <div className="project-details mono"><p>Next.js / React / TypeScript / Tailwind CSS</p><p className="capture-note">V2 页面记录 · Refero 重构前</p></div>
+            </article>
+
+            <article className="archive-project" aria-labelledby="lstm-title">
+              <div className="archive-cover">
+                <p className="mono">03 / 历史项目</p>
+                <div><p className="archive-word">暂无预览</p><p>毕业设计 · 材料保留</p></div>
+                <p className="mono">Python / 自然语言处理 / Web</p>
+              </div>
+              <div className="project-caption"><div><h3 id="lstm-title">LSTM 中文影评情感分析</h3><p>历史毕业设计</p></div></div>
+              <p className="archive-boundary">源码存档已遗失，保留毕业设计和答辩材料。</p>
+              <details className="archive-details"><summary><span className="archive-closed-label">展开项目记录</span><span className="archive-open-label">收起项目记录</span><span className="archive-toggle" aria-hidden="true">＋</span></summary><ol><li>中文影评数据预处理。</li><li>LSTM 情感分类模型训练。</li><li>Flask 封装预测接口。</li><li>Web 页面展示分类结果与置信度。</li><li>源码存档已遗失，保留毕业设计和答辩材料。</li></ol></details>
+            </article>
+          </div>
         </section>
-        <section id="skills" className="section skills-section" aria-labelledby="skills-title"><div className="shell"><SectionLabel number="03">技能与工具</SectionLabel><div className="section-heading"><h2 id="skills-title">技术不只是名字，<br />也是解决问题的方式。</h2><p>在项目中使用，在实践中理解。<br />仍在学习，也持续建立更扎实的基础。</p></div><div className="skills-grid">{skills.map((skill,index)=><article className="skill-group" key={skill.title}><span className="skill-index">0{index+1}</span><div><h3>{skill.title}</h3><p>{skill.description}</p><Tags items={skill.tags} /></div></article>)}</div></div></section>
-        <section id="coursework" className="shell section coursework-section" aria-labelledby="coursework-title"><div className="coursework-heading"><div><SectionLabel number="04">课程实践</SectionLabel><h2 id="coursework-title">从基础实验开始。</h2></div><p>本科阶段完成的基础课程设计与实验，用于学习人工智能、计算机视觉、嵌入式系统和机器人控制的基本原理。</p></div><ul className="labs-list">{labs.map((lab,index)=><li key={lab}><span>0{index+1}</span>{lab}</li>)}</ul></section>
-        <section id="about" className="section about-section" aria-labelledby="about-title"><div className="shell about-grid"><div><SectionLabel number="05">关于我</SectionLabel><h2 id="about-title">关注连接，<br />也关注实现。</h2></div><div className="about-copy"><p>我是刘文安，一名人工智能专业本科生。</p><p>相比单纯罗列技术名词，我更关注如何把模型、接口、软件和实际设备组合成可以工作的系统。</p><p>毕业设计让我接触模型到应用的完整流程，机器人二次开发经历让我开始理解软件在真实设备上的运行与调试。现在持续学习 AI 应用开发、Python、Web 工程和规范的软件开发流程。</p><div className="about-signature">刘文安 <span>Liu Wen&apos;an</span></div></div></div></section>
-        <section id="contact" className="shell section contact-section" aria-labelledby="contact-title"><SectionLabel number="06">联系方式</SectionLabel><div className="contact-grid"><div><h2 id="contact-title">聊聊下一个<br />可以一起解决的问题<span className="accent">。</span></h2><p>欢迎交流 AI / Python / 软件开发相关岗位与项目实践。</p></div><div className="contact-details"><span className="email-label">邮件联系</span><a className="email-link" href="mailto:15735434286@163.com">15735434286@163.com <span aria-hidden="true">↗</span></a><div className="contact-resources"><a href="https://github.com/317042-YueMing" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a><a href="/resume.pdf" target="_blank" rel="noopener noreferrer">简历下载 <span aria-hidden="true">↓</span></a></div><p id="resources-note">真实链接与正式简历确认后开放。</p></div></div></section>
+
+        <section id="cases" className="cases-section shell" aria-labelledby="cases-title">
+          <div className="section-caption"><h2 id="cases-title">工程记录</h2><p>三则现场测试与厂家协作记录。</p></div>
+          <details className="related-media">
+            <summary>相关设备 / 联调现场素材 <span aria-hidden="true">＋</span></summary>
+            <p>设备照片，仅作联调背景参考，不对应某一次故障现场。</p>
+            <div className="related-gallery">{robotics.slice(2).map((photo) => (
+              <figure key={photo.src}>
+                <ImagePreview capture={photo} title={photo.alt} description="相关设备 / 联调现场素材，不对应某一次故障现场。" label={`放大查看：${photo.alt}`} className="robot-photo">
+                  <Image {...photo} alt={photo.alt} sizes="(max-width: 700px) 42vw, 24vw" />
+                  <span className="photo-action">放大查看 ↗</span>
+                </ImagePreview>
+                <figcaption>{photo.alt}</figcaption>
+              </figure>
+            ))}</div>
+          </details>
+          <div className="case-gallery">{cases.map((entry) => (
+            <article id={entry.id} key={entry.id} className="case-entry" aria-label={entry.title}>
+              <CaseDisclosure number={entry.number} title={entry.title} problem={entry.problem} record={entry.id === "load-drift" ? loadDriftRecord : entry.id === "narrow-passage" ? narrowPassageRecord : stairsRecord} recordHref={`#${entry.id}`} />
+            </article>
+          ))}</div>
+        </section>
+
+        <section id="stack" className="stack-section shell" aria-labelledby="stack-title">
+          <h2 id="stack-title">技术栈</h2>
+          <dl className="stack-index">
+            <div tabIndex={0} role="group" aria-labelledby="stack-building"><dt id="stack-building">网站与界面</dt><dd><p>Next.js / React / TypeScript / JavaScript / Tailwind CSS</p><p>个人网站与 Web 界面。</p></dd></div>
+            <div tabIndex={0} role="group" aria-labelledby="stack-data"><dt id="stack-data">模型与数据</dt><dd><p>Python / PyTorch / OpenCV</p><p>AI 实验与课程工具记录。</p></dd></div>
+            <div tabIndex={0} role="group" aria-labelledby="stack-api"><dt id="stack-api">接口 / API</dt><dd><p>Flask / FastAPI</p><p>Flask 用于影评接口；FastAPI 项目待补充。</p></dd></div>
+            <div tabIndex={0} role="group" aria-labelledby="stack-tools"><dt id="stack-tools">工程工具</dt><dd><p>Git</p><p>Mycool 版本管理。</p></dd></div>
+          </dl>
+        </section>
+
+        <section id="contact" className="contact shell" aria-labelledby="contact-title">
+          <h2 id="contact-title">联系方式</h2>
+          <div className="contact-links"><a href={`mailto:${email}`}><span>邮箱</span><span>{email} ↗</span></a><a href={github}><span>GitHub</span><span>317042-YueMing ↗</span></a><a href="/resume.pdf" download><span>简历</span><span>下载 PDF ↓</span></a></div>
+        </section>
       </main>
-      <footer className="site-footer"><div className="shell footer-inner"><p>© 2026 刘文安 · Mycool</p><p>使用 Next.js 与 TypeScript 构建</p><a href="#home">回到顶部 ↑</a></div></footer>
+      <footer className="site-footer shell"><p>© 2026 刘文安 / Mycool</p><a href="#intro">回到顶部 ↑</a></footer>
     </>
   );
 }
