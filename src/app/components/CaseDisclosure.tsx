@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { Fragment, useId, useState } from "react";
 
 type CaseDisclosureProps = {
   number: string;
@@ -15,9 +15,11 @@ export default function CaseDisclosure({ number, title, problem, record, recordH
   const [expanded, setExpanded] = useState(false);
   const panelId = useId();
   const triggerId = useId();
+  const Heading = variant === "tile" ? "h3" : Fragment;
 
   return (
     <div className={`case-disclosure ${variant === "cover" ? "cover-disclosure" : "case-tile"}`}>
+      <Heading>
       <button
         id={triggerId}
         className={variant === "cover" ? "cover-trigger" : "case-cover media-surface"}
@@ -34,12 +36,13 @@ export default function CaseDisclosure({ number, title, problem, record, recordH
           <span className="case-action"><span>{expanded ? "收起记录" : record ? "展开工程记录" : "查看当前现象"}</span><span className="expand-mark" aria-hidden="true">{expanded ? "−" : "＋"}</span></span>
         ) : <span className="expand-mark" aria-hidden="true">{expanded ? "−" : "＋"}</span>}
       </button>
+      </Heading>
       {record && variant === "tile" && !expanded ? <p className="case-summary">{record.summary}</p> : null}
       <div className="case-body" id={panelId} role="region" aria-labelledby={triggerId} hidden={!expanded}>
         {record ? variant === "cover" ? (
           <><p className="record-status">协作记录 · 摘要</p><p>{record.summary}</p><a className="record-full-link" href={recordHref}>前往完整工程记录 ↓</a></>
         ) : (
-          <div className="case-record">{record.sections.map((section) => <section key={section.heading}><h3>{section.heading}</h3><p>{section.text}</p></section>)}</div>
+          <div className="case-record">{record.sections.map((section) => <section key={section.heading}><h4>{section.heading}</h4><p>{section.text}</p></section>)}</div>
         ) : (
           <><p className="record-status">记录中 · 当前现象</p><p>{problem}</p><p className="record-next">后续将补充：排查 / 修改 / 验证。</p></>
         )}

@@ -257,6 +257,6 @@ summary::-webkit-details-marker { display: none; }
 .case-summary { padding: 20px 25px; background: #eeede8; font-size: 15px; line-height: 1.9; }
 .case-record { overflow-wrap: anywhere; font-size: 16px; line-height: 1.9; }
 .case-record section + section { margin-top: 26px; }
-.case-record h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.case-record h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
 .record-full-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; text-decoration: underline; font-size: 14px; }
 .record-full-link:focus-visible { outline-color: #f4f3ed; }

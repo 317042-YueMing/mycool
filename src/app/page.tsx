@@ -52,9 +52,9 @@ const cases = [
 ] as const;
 
 const robotics = [
-  { src: "/media/robotics/robotics-sensor-rig-01.jpg", width: 1279, height: 1706, alt: "四足机器人与顶部感知模组" },
+  { src: "/media/robotics/robotics-sensor-config-01.jpg", width: 1279, height: 1706, alt: "四足机器人顶部感知模组配置" },
   { src: "/media/robotics/robotics-standing-overview-01.jpg", width: 1706, height: 1279, alt: "四足机器人侧面站立状态" },
-  { src: "/media/robotics/robotics-sensor-config-01.jpg", width: 1279, height: 1706, alt: "四足机器人顶部感知模块配置" },
+  { src: "/media/robotics/robotics-sensor-rig-01.jpg", width: 1279, height: 1706, alt: "四足机器人与顶部感知模组" },
   { src: "/media/robotics/robotics-hardware-inspection-01.jpg", width: 1919, height: 1080, alt: "四足机器人硬件检查状态" },
 ] as const;
 

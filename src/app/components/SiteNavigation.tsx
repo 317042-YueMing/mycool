@@ -17,11 +17,8 @@ export default function SiteNavigation() {
         if ((document.getElementById(id)?.getBoundingClientRect().top ?? Infinity) <= threshold) current = id;
       }
       if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
-        // Short sections near the footer cannot reach the top threshold.
-        const anchor = window.location.hash.slice(1);
-        const target = sections.some(([id]) => id === anchor) ? document.getElementById(anchor) : null;
-        const top = target?.getBoundingClientRect().top ?? -1;
-        current = top >= 0 && top < window.innerHeight ? anchor : "contact";
+        // At the bottom, scrolling position takes precedence over an old hash.
+        current = "contact";
       }
       setActive(current);
     };
