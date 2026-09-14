@@ -50,7 +50,7 @@ h1 { font-family: var(--serif); font-size: clamp(100px, 15vw, 216px); line-heigh
 .section-caption > p { font-size: 13px; color: var(--muted); }
 
 /* Brisbane gallery + Verse media/caption unit. Media owns the tile. */
-.work-gallery { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); gap: 48px 28px; }
+.work-gallery { display: grid; grid-template-columns: minmax(0, 1fr); gap: 84px; }
 .robot-project { grid-column: 1 / -1; }
 .media-surface { display: block; position: relative; }
 .cover-index { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: auto; }
@@ -64,7 +64,7 @@ h1 { font-family: var(--serif); font-size: clamp(100px, 15vw, 216px); line-heigh
 .project-caption > div > p:not(.project-name) { margin-top: 6px; color: var(--muted); font-size: 14px; }
 .project-caption > .mono { color: var(--muted); text-align: right; font-size: 12px; }
 
-.mycool-media { width: 100%; border: 0; text-align: left; height: 580px; overflow: hidden; background: var(--plate); }
+.mycool-media { width: 100%; border: 0; text-align: left; height: 280px; overflow: hidden; background: var(--plate); }
 .desktop-capture { position: absolute; width: 88%; left: 5%; top: 11%; box-shadow: 0 8px 24px #40352a1c; transition: transform 250ms ease; }
 .desktop-capture img, .mobile-capture img { display: block; width: 100%; height: auto; }
 .mobile-capture { position: absolute; width: 22%; right: 4%; bottom: 13%; box-shadow: 0 5px 18px #40352a26; transition: transform 250ms ease; }
@@ -131,7 +131,7 @@ summary::-webkit-details-marker { display: none; }
 .original-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; font-size: 14px; text-decoration: underline; }
 
 .stack-section { margin-top: 80px; display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 44px; }
-.stack-index { display: grid; grid-template-columns: 1.5fr 1.1fr 1.1fr .7fr; gap: 30px; }
+.stack-index { display: grid; grid-template-columns: 1.1fr 1fr 1.3fr .8fr; gap: 30px; }
 .stack-index dt { font: 13px/1.5 var(--mono); color: var(--muted); }
 .stack-index dd { margin-top: 12px; font-size: 14px; }
 .stack-index dd p + p { color: var(--muted); margin-top: 8px; font-size: 13px; }
@@ -147,9 +147,9 @@ summary::-webkit-details-marker { display: none; }
 
 @media (max-width: 1050px) {
   .shell { width: calc(100% - 48px); }
-  .work-gallery { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 36px 24px; }
+  .work-gallery { grid-template-columns: minmax(0, 1fr); gap: 64px; }
   .cover-index li { font-size: 16px; }
-  .mycool-media { height: 440px; }
+  .mycool-media { height: 260px; }
   .desktop-capture { width: 100%; left: 0; top: 15%; }
   .mobile-capture { width: 28%; bottom: 17%; }
   .project-caption { flex-wrap: wrap; gap: 8px; }
@@ -183,7 +183,7 @@ summary::-webkit-details-marker { display: none; }
   .project-caption { padding-top: 16px; }
   .project-caption h3, .project-name { font-size: 20px; }
   .project-caption > div > p:not(.project-name) { font-size: 15px; }
-  .mycool-media { height: 390px; }
+  .mycool-media { height: 260px; }
   .desktop-capture { top: 15%; width: 115%; left: -10%; }
   .mobile-capture { width: 33%; right: 5%; bottom: 18%; }
   .image-link { right: 16px; bottom: 18px; font-size: 12px; }
@@ -218,12 +218,12 @@ summary::-webkit-details-marker { display: none; }
 
 /* Actual equipment photographs: complete frames, captions outside the media. */
 .robot-gallery { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: end; }
-.robot-main-photo { width: 100%; max-width: 495px; justify-self: center; }
+.robot-main-photo { width: 100%; max-width: 370px; justify-self: center; }
 .robot-photo { display: block; border: 0; padding: 0; width: 100%; background: transparent; text-align: left; }
 .robot-photo img { display: block; width: 100%; height: auto; }
 .photo-action { display: block; padding-top: 8px; font-size: 13px; color: var(--muted); text-align: right; }
 .robot-photo:hover .photo-action { text-decoration: underline; text-underline-offset: 4px; }
-.robot-secondary-photo { width: 72%; margin-left: auto; }
+.robot-secondary-photo { width: 58%; margin-left: auto; }
 .robot-caption { margin-top: 34px; }
 .robot-caption > .mono { color: var(--muted); }
 .robot-caption h3 { font-size: clamp(28px, 2.6vw, 40px); line-height: 1.4; margin-top: 14px; }
@@ -235,7 +235,7 @@ summary::-webkit-details-marker { display: none; }
 .related-media summary { display: flex; align-items: center; justify-content: space-between; max-width: 420px; min-height: 44px; cursor: pointer; font-size: 14px; }
 .related-media[open] summary span { transform: rotate(45deg); }
 .related-media > p { font-size: 14px; color: var(--muted); margin: 10px 0 20px; }
-.related-gallery { display: flex; align-items: flex-end; gap: 24px; }
+.related-gallery { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 24px; }
 .related-gallery figure { width: min(38%, 340px); }
 .related-gallery figure:first-child { width: min(22%, 180px); }
 .related-gallery figcaption { margin-top: 6px; font-size: 13px; color: var(--muted); }
@@ -247,7 +247,7 @@ summary::-webkit-details-marker { display: none; }
   .robot-caption { order: -1; margin-top: 0; }
   .robot-caption h3 { font-size: 29px; }
   .robot-company { margin-top: 16px; }
-  .robot-secondary-photo { width: 72%; margin-top: 24px; }
+  .robot-secondary-photo { width: 58%; margin-top: 24px; }
   .robot-issues { padding: 12px 20px; margin-top: 24px; }
   .related-gallery { gap: 18px; }
   .related-gallery figure, .related-gallery figure:first-child { width: calc(50% - 9px); }
@@ -260,3 +260,99 @@ summary::-webkit-details-marker { display: none; }
 .case-record h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
 .record-full-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; text-decoration: underline; font-size: 14px; }
 .record-full-link:focus-visible { outline-color: #f4f3ed; }
+
+/* Prioritize the vision system, then field engineering, then personal work. */
+.identity-copy { max-width: 740px; }
+.identity-copy .identity-role { font-size: 24px; margin-bottom: 8px; }
+.identity-copy > p + p { font-size: 16px; }
+.identity-copy .identity-direction { margin-top: 14px; color: var(--muted); font-size: 14px; }
+.identity-foot .text-links { flex-shrink: 0; }
+.vision-heading > .mono { color: var(--muted); }
+.vision-heading h3 { font-size: clamp(32px, 3.6vw, 52px); line-height: 1.3; margin-top: 14px; }
+.vision-subtitle { font-size: 16px; color: var(--muted); margin-top: 12px; }
+.vision-media { margin-top: 30px; }
+.vision-photo { display: block; width: 100%; padding: 0; border: 0; background: transparent; text-align: left; cursor: zoom-in; }
+.vision-photo img { display: block; width: 100%; height: auto; }
+.vision-support { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 32px; align-items: start; }
+.vision-support summary { display: flex; justify-content: space-between; align-items: center; min-height: 48px; cursor: pointer; }
+.vision-support details[open] summary span { transform: rotate(45deg); }
+.vision-support .vision-photo { margin-top: 18px; max-width: 420px; }
+.vision-support details:last-child .vision-photo { max-width: 520px; }
+.vision-support p { margin-top: 12px; font-size: 16px; color: var(--muted); }
+.vision-intro { display: flex; justify-content: space-between; align-items: flex-start; gap: 60px; margin-top: 24px; }
+.vision-intro > p:first-child { max-width: 780px; font-size: 20px; line-height: 1.8; }
+.vision-status { flex-shrink: 0; font-size: 15px; }
+.vision-status span { color: var(--muted); font-size: 14px; }
+.vision-capabilities { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 38px; }
+.vision-ai h4 { font-size: 17px; font-weight: 400; }
+.vision-ai > p { font-size: 28px; line-height: 1.65; margin-block: 12px 20px; }
+.vision-ai > .mono { color: var(--muted); }
+.vision-index details + details { margin-top: 12px; }
+.vision-index summary, .vision-contribution summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; min-height: 48px; }
+.vision-index summary { border-bottom: 1px solid #d1d1c8; padding-bottom: 8px; }
+.vision-index details[open] summary span, .vision-contribution[open] summary span { transform: rotate(45deg); }
+.vision-index details > p { margin-top: 14px; color: var(--muted); font-size: 16px; overflow-wrap: anywhere; }
+.vision-contribution { margin-top: 30px; }
+.vision-contribution > summary { max-width: 420px; font-size: 15px; }
+.contribution-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; padding-top: 20px; max-width: 1100px; }
+.contribution-body h4 { font-size: 16px; margin-bottom: 12px; }
+.contribution-body p, .contribution-body li { color: var(--muted); font-size: 16px; line-height: 1.9; }
+.contribution-body ul { list-style: disc; padding-left: 20px; }
+.contribution-body li + li { margin-top: 8px; }
+.mycool-project { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.3fr); gap: 50px; align-items: center; }
+.mycool-copy > .mono { color: var(--muted); }
+.mycool-copy h3 { font-size: 28px; margin-block: 12px; }
+.mycool-copy > p { font-size: 16px; }
+.academic-section { margin-top: 84px; }
+.academic-project { display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; }
+.academic-project h3 { font-size: 21px; line-height: 1.5; }
+.academic-project > div > p { margin-top: 10px; color: var(--muted); font-size: 14px; }
+@media (max-width: 1050px) {
+  .identity-foot { flex-wrap: wrap; }
+  .vision-intro { gap: 30px; }
+  .vision-capabilities { gap: 40px; }
+}
+@media (max-width: 700px) {
+  .identity-copy .identity-role { font-size: 21px; }
+  .identity-copy > p + p { line-height: 1.9; }
+  .vision-heading h3 { font-size: 32px; }
+  .vision-subtitle { font-size: 14px; line-height: 1.9; }
+  .vision-media { margin-top: 24px; }
+  .vision-support { grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }
+  .vision-intro { display: block; }
+  .vision-intro > p:first-child { font-size: 18px; }
+  .vision-status { margin-top: 20px; }
+  .vision-capabilities { grid-template-columns: 1fr; gap: 28px; margin-top: 30px; }
+  .vision-ai > p { font-size: 26px; }
+  .vision-contribution { margin-top: 24px; }
+  .contribution-body { grid-template-columns: 1fr; gap: 24px; }
+  .mycool-project { grid-template-columns: 1fr; gap: 22px; }
+  .mycool-copy h3 { font-size: 25px; }
+  .academic-section { margin-top: 60px; }
+  .academic-project { grid-template-columns: 1fr; gap: 12px; }
+}
+
+/* Compact engineering index; full records remain in disclosure panels. */
+.case-gallery { grid-template-columns: 1fr; gap: 0; }
+.case-entry { padding-block: 20px; border-bottom: 1px solid #d1d1c8; }
+.case-entry:nth-child(n) .case-cover { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 20px; min-height: 48px; padding: 0; background: transparent; }
+.case-no { margin: 0; font: 18px/1.5 var(--mono); letter-spacing: normal; }
+.case-title { margin: 0; font-size: 22px; }
+.case-action { margin: 0; font-weight: 400; }
+.case-summary { padding: 8px 0 0 64px; background: transparent; font-size: 16px; }
+.case-tile .case-body { margin-top: 16px; }
+.vision-flow { margin-top: 32px; }
+.vision-flow ol { display: flex; flex-wrap: wrap; gap: 16px 24px; list-style: none; padding: 0; font-size: 18px; }
+.vision-flow li:not(:last-child)::after { content: "→"; margin-left: 24px; color: var(--muted); }
+.vision-flow > p { margin-top: 20px; font-size: 16px; color: var(--muted); }
+.contribution-body p + h4 { margin-top: 24px; }
+@media (max-width: 700px) {
+  .case-entry { padding-block: 18px; }
+  .case-entry:nth-child(n) .case-cover { grid-template-columns: 28px 1fr; gap: 8px 12px; }
+  .case-title { font-size: 19px; }
+  .case-action { grid-column: 2; justify-content: flex-start; min-height: 32px; }
+  .case-summary { padding: 8px 0 0 40px; font-size: 15px; }
+  .vision-flow ol { display: block; font-size: 17px; }
+  .vision-flow li + li { margin-top: 8px; }
+  .vision-flow li:not(:last-child)::after { content: "↓"; display: block; margin: 8px 0 0; font-size: 14px; }
+}

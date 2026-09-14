@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "刘文安 | Mycool",
-  description: "刘文安的个人技术网站，记录机器人二次开发经历、Mycool 开发和 LSTM 中文影评情感分析毕业设计。",
+  description: "刘文安的个人技术网站，记录实时 AI 视觉巡检、四足机器人联调、Mycool 开发与毕业设计项目。",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

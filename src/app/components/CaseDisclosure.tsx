@@ -22,14 +22,13 @@ export default function CaseDisclosure({ number, title, problem, record, recordH
       <Heading>
       <button
         id={triggerId}
-        className={variant === "cover" ? "cover-trigger" : "case-cover media-surface"}
+        className={variant === "cover" ? "cover-trigger" : "case-cover"}
         type="button"
         aria-expanded={expanded}
         aria-controls={panelId}
         aria-label={`${title}，${expanded ? "收起" : "查看"}记录`}
         onClick={() => setExpanded((value) => !value)}
       >
-        {variant === "tile" ? <span className="case-top mono"><span>工程记录</span><span>{record ? "协作记录" : "记录中"}</span></span> : null}
         <span className={variant === "cover" ? "mono" : "case-no"} aria-hidden="true">{number}</span>
         <span className={variant === "cover" ? "cover-issue-title" : "case-title"}>{title}</span>
         {variant === "tile" ? (
@@ -37,7 +36,7 @@ export default function CaseDisclosure({ number, title, problem, record, recordH
         ) : <span className="expand-mark" aria-hidden="true">{expanded ? "−" : "＋"}</span>}
       </button>
       </Heading>
-      {record && variant === "tile" && !expanded ? <p className="case-summary">{record.summary}</p> : null}
+      {record && variant === "tile" && !expanded ? <p className="case-summary">{problem}</p> : null}
       <div className="case-body" id={panelId} role="region" aria-labelledby={triggerId} hidden={!expanded}>
         {record ? variant === "cover" ? (
           <><p className="record-status">协作记录 · 摘要</p><p>{record.summary}</p><a className="record-full-link" href={recordHref}>前往完整工程记录 ↓</a></>
